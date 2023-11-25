@@ -8,7 +8,7 @@ load_dotenv()
 
 recognizer = sr.Recognizer()
 
-client = OpenAI()
+openai_client = OpenAI()
 
 SYSTEM_INSTRUCTION = """
 I want you to act as an arrogant, overconfident and irritable senior software developer, 
@@ -39,25 +39,31 @@ def speak_text_coquitts(text):
     sd.wait()
 
 
+def call_chatgpt_api(input_text):
+    response = openai_client.chat.completions.create(
+        model="gpt-4-1106-preview",  # Or just gpt-4 for older version
+        messages=[
+            {
+                "role": "system",
+                "content": SYSTEM_INSTRUCTION,
+            },
+            {
+                "role": "user",
+                "content": input_text,
+            }
+        ],
+        temperature=0.9,  # 0.1 for more conservative answers
+        max_tokens=4000,
+    )
+    message = response.choices[0].message.content.strip()
+    print(f'ChatGPT response: {message}')
+    return message
+
+
 if __name__ == "__main__":
     while True:
         print('Say something to Jarvis')
         input_text = listen_speech()
-        response = client.chat.completions.create(
-            model="gpt-4-1106-preview",
-            messages=[
-                {
-                    "role": "system",
-                    "content": SYSTEM_INSTRUCTION,
-                },
-                {
-                    "role": "user",
-                    "content": input_text,
-                }
-            ],
-            temperature=0.9,
-            max_tokens=4000,
-        )
-        message = response.choices[0].message.content.strip()
-        print(f'ChatGPT response: {message}')
-        speak_text_coquitts(message)
+        if input_text:
+            message = call_chatgpt_api(input_text)
+            speak_text_coquitts(message)
