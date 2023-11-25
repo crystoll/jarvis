@@ -1,12 +1,17 @@
-from dotenv import dotenv_values
-import os
+from dotenv import load_dotenv
+from openai import OpenAI
 
+load_dotenv()
 
-config = {
-    **dotenv_values('.env'),
-    **os.environ,
-}
-
+client = OpenAI()
 
 if __name__ == "__main__":
-    print("hello")
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {
+                "role": "user",
+                "content": "What is love?",
+            }
+        ])
+    print(f'ChatGPT response: {response}')
