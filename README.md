@@ -20,7 +20,7 @@ Alternatively, you can set the environment variable OPENAI_API_KEY to your key a
 
 Alternatively, you can replace OpenAI API with a cool local model instead (Future development idea)
 
-You may need to tinker with the device numbers depending on your machine's setup, which port each device is on, etc.  The default is 0 for the microphone and 2 for the speaker.  If you have a webcam, you can use that too, as a microphone.  Just change the device number to 1.
+You may need to tinker with the device numbers depending on your machine's setup, which port each device is on, etc.  If code doesn't work for you you can try to use Python libraries to list device ids and names so you can find your proper microphone and speaker device numbers. Alternatively, can of course go wild about the code and make it detect suitable ones and skip bad ones instead of hardcoding them.
 
 ## Use
 

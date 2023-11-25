@@ -6,12 +6,13 @@ load_dotenv()
 client = OpenAI()
 
 if __name__ == "__main__":
-    response = client.chat.completions.create(
-        model="gpt-4",
-        messages=[
-            {
-                "role": "user",
-                "content": "What is love?",
-            }
-        ])
-    print(f'ChatGPT response: {response}')
+    print('hello world!')
+    # response = client.chat.completions.create(
+    #     model="gpt-4",
+    #     messages=[
+    #         {
+    #             "role": "user",
+    #             "content": "What is love?",
+    #         }
+    #     ])
+    # print(f'ChatGPT response: {response}')
